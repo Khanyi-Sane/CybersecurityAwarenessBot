@@ -17,7 +17,7 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore ./CybersecurityAwarenessBot/CybersecurityAwarenessBot.csproj
 
       - name: Build
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build ./CybersecurityAwarenessBot/CybersecurityAwarenessBot.csproj --no-restore --configuration Release
