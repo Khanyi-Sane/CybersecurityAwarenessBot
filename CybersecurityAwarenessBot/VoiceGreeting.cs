@@ -9,7 +9,7 @@ using System.Media;
 public class VoiceGreeting
 {
     // Relative path to the greeting file.
-    // The greeting.wav file will be placed inside the Audio folder.
+    // The greeting.wav file is stored inside the Audio folder.
     private readonly string _relativePath = Path.Combine("Audio", "greeting.wav");
 
     // Plays the voice greeting when the chatbot starts.
@@ -17,7 +17,11 @@ public class VoiceGreeting
     {
         try
         {
+            // Build the full path to the audio file.
             string fullPath = Path.Combine(AppContext.BaseDirectory, _relativePath);
+
+            // Display the location being checked so we can troubleshoot if needed.
+            Console.WriteLine($"Looking for audio at: {fullPath}");
 
             // Check whether the audio file exists.
             if (!File.Exists(fullPath))
@@ -28,10 +32,11 @@ public class VoiceGreeting
                 return;
             }
 
+            // Create the audio player using the WAV file.
             using SoundPlayer player = new SoundPlayer(fullPath);
 
-            // Wait for the greeting to finish before continuing.
-            player.PlaySync();
+            // Play the greeting while chatbot continues starting up.
+            player.Play();
         }
         catch (Exception ex)
         {
@@ -42,3 +47,4 @@ public class VoiceGreeting
         }
     }
 }
+

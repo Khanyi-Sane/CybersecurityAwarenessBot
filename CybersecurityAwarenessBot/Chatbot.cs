@@ -24,8 +24,13 @@ public class Chatbot
         _userProfile.Name = ReadName();
 
         TypeLine($"Bot > Nice to meet you, {_userProfile.Name}!", ConsoleColor.Green);
-        TypeLine("Bot > You can ask me about password safety, phishing, or safe browsing.", ConsoleColor.Cyan);
-        TypeLine("Bot > Type 'exit' or 'quit' when you want to end the conversation.", ConsoleColor.DarkYellow);
+        TypeLine($"Bot > Nice to meet you, {_userProfile.Name}!", ConsoleColor.Green);
+
+        TypeLine("Bot > You can ask me about:", ConsoleColor.Cyan);
+        TypeLine("      1. Password Safety", ConsoleColor.Cyan);
+        TypeLine("      2. Phishing", ConsoleColor.Cyan);
+        TypeLine("      3. Safe Browsing", ConsoleColor.Cyan);
+        TypeLine("      4. My Purpose", ConsoleColor.Cyan); TypeLine("Bot > Type 'exit' or 'quit' when you want to end the conversation.", ConsoleColor.DarkYellow);
 
         // Start the main conversation loop.
         RunConversationLoop();
