@@ -1,4 +1,8 @@
-﻿using System;
+﻿//Chatbot.cs
+//Controls the main conversation and connescts the other chatbot classes
+//Handles the user's name,menu,conversation loop, and chatbot responses.
+using System;
+using System.Threading;
 
 public class Chatbot
 {
@@ -11,8 +15,10 @@ public class Chatbot
     // Starts the chatbot conversation.
     public void Start()
     {
-        // Play the voice greeting and display the ASCII logo.
+        // Play the voice greeting while the chatbot continues starting up.
         _voiceGreeting.PlayGreeting();
+
+        // Display the ASCII logo.
         _asciiArt.DisplayLogo();
 
         Console.WriteLine();
@@ -24,13 +30,15 @@ public class Chatbot
         _userProfile.Name = ReadName();
 
         TypeLine($"Bot > Nice to meet you, {_userProfile.Name}!", ConsoleColor.Green);
-        TypeLine($"Bot > Nice to meet you, {_userProfile.Name}!", ConsoleColor.Green);
 
+        // Display the available cybersecurity topics as a numbered list.
         TypeLine("Bot > You can ask me about:", ConsoleColor.Cyan);
         TypeLine("      1. Password Safety", ConsoleColor.Cyan);
         TypeLine("      2. Phishing", ConsoleColor.Cyan);
         TypeLine("      3. Safe Browsing", ConsoleColor.Cyan);
-        TypeLine("      4. My Purpose", ConsoleColor.Cyan); TypeLine("Bot > Type 'exit' or 'quit' when you want to end the conversation.", ConsoleColor.DarkYellow);
+        TypeLine("      4. My Purpose", ConsoleColor.Cyan);
+
+        TypeLine("Bot > Type 'exit' or 'quit' when you want to end the conversation.", ConsoleColor.DarkYellow);
 
         // Start the main conversation loop.
         RunConversationLoop();
@@ -82,15 +90,23 @@ public class Chatbot
             // Send the user's question to the ResponseHandler.
             string response = _responseHandler.GetResponse(trimmedInput, _userProfile.Name);
 
+            // Display the chatbot response using the typing effect.
             TypeLine($"Bot > {response}", ConsoleColor.Cyan);
         }
     }
 
-    // Displays chatbot messages using the selected colour.
+    // Displays chatbot messages with a short typing effect.
     private void TypeLine(string message, ConsoleColor color)
     {
         Console.ForegroundColor = color;
-        Console.WriteLine(message);
+
+        foreach (char character in message)
+        {
+            Console.Write(character);
+            Thread.Sleep(20);
+        }
+
+        Console.WriteLine();
         Console.ResetColor();
     }
 }
